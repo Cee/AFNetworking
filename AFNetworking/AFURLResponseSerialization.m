@@ -22,6 +22,7 @@
 #import "AFURLResponseSerialization.h"
 
 #import <TargetConditionals.h>
+#import "JSONKit.h"
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
@@ -251,6 +252,11 @@ static id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingO
         responseObject = [NSJSONSerialization JSONObjectWithData:data options:self.readingOptions error:&serializationError];
     } else {
         return nil;
+    }
+    
+    if (error) {
+        error = nil;
+        responseObject = [data objectFromJSONDataWithParseOptions:JKParseOptionLooseUnicode error:& error];   // use JSONKit
     }
 
     if (self.removesKeysWithNullValues && responseObject) {
