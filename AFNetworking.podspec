@@ -32,6 +32,11 @@ EOS
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
   
+  s.subspec 'no-arc' do |ss|
+    ss.source_files = 'JSONKit.{h,m}'
+    ss.requires_arc = false
+  end
+
   s.subspec 'Serialization' do |ss|
     ss.source_files = 'AFNetworking/AFURL{Request,Response}Serialization.{h,m}', 'JSONKit.{h,m}'
     ss.public_header_files = 'AFNetworking/AFURL{Request,Response}Serialization.h' 'JSONKit.h'
